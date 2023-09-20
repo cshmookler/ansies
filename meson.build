@@ -4,14 +4,15 @@ project('ansies',
         default_options : ['cpp_std=c++17'])
 
 project_name = meson.project_name()
-version = meson.project_version()
+project_version = meson.project_version()
 
 include_dir = meson.source_root()/'include'/project_name
 src_dir = meson.source_root()/'src'
 build_dir = meson.build_root()
+examples_dir = meson.source_root()/'examples'
 
 conf_data = configuration_data()
-conf_data.set('version', version)
+conf_data.set('version', project_version)
 configure_file(configuration : conf_data,
                input : include_dir/'version.hpp.in',
                output : 'version.hpp')
@@ -22,5 +23,6 @@ headers = files(include_dir/'ansies.hpp',
 sources = files(src_dir/'ansies.cpp',
                 src_dir/'version.cpp')
 
-library(meson.project_name(), sources, version : version, install : true)
+# Build ansies
+ansies = library(project_name, sources, version : project_version, install : true)
 install_headers(headers, subdir : project_name)

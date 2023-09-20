@@ -22,7 +22,7 @@
 #pragma once
 
 #ifndef ANSIES_ESCAPE_CODE
-#define ANSIES_ESCAPE_CODE "\e["
+#define ANSIES_ESCAPE_CODE "\033["
 #endif
 
 #ifndef ANSIES_INCLUDE_NONE

@@ -1,3 +1,5 @@
 build
 
+include/ansies/version.hpp
 .cache
+.vscode

@@ -32,27 +32,33 @@ class ansies(ConanFile):
     build_policy = "missing"
 
     # Essential files
-    exports_sources = ".git/*", "include/*", "src/*", "meson.build", "LICENSE"
+    exports_sources = ".git/*", "include/*", "src/*", "examples/*", "meson.build", "LICENSE"
+
+    _build_folder = "build"
+    _generator_folder = join_path(_build_folder, "generators")
 
     def set_version(self):
-        git = Git(self)
+        git = Git(self, folder=self.recipe_folder)
         self.version = git.run("describe --tags")
 
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
+    
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
 
     def build_requirements(self):
         self.tool_requires("meson/[>=1.2.1 <2.0.0]")
 
-    def layout(self):
-        self.folders.source = ""
-        self.folders.build = "build"
-        self.folders.generators = join_path("build", "generators")
-    
     # def requirements(self):
     #     pass
 
+    def layout(self):
+        self.folders.build = self._build_folder
+        self.folders.generators = self._generator_folder
+    
     def generate(self):
         # deps = PkgConfigDeps(self)
         # deps.generate()
