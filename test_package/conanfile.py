@@ -9,8 +9,15 @@ class ansiesTestPackage(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "PkgConfigDeps", "MesonToolchain"
 
+    def build_requirements(self):
+        self.tool_requires("meson/1.2.1")
+        self.tool_requires("pkgconf/2.0.3")
+
     def requirements(self):
-        self.requires(self.tested_reference_str)
+        if self.tested_reference_str is not None:
+            self.requires(self.tested_reference_str)
+        else:
+            self.requires("ansies/[*]")
     
     def layout(self):
         self.folders.build = "build"
@@ -23,4 +30,5 @@ class ansiesTestPackage(ConanFile):
     
     def test(self):
         if can_run(self):
-            self.run(join_path(self.build_folder, "ansies_package_test"), env="conanrun")
+            cmd = join_path(self.build_folder, "ansies_package_test")
+            self.run(cmd, env="conanrun")

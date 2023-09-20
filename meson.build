@@ -1,7 +1,7 @@
 project('ansies',
         'cpp',
         version : run_command('git', 'describe', '--tags', check : true).stdout().strip(),
-        default_options : ['cpp_std=c++17'])
+        default_options : ['cpp_std=c++11'])
 
 project_name = meson.project_name()
 project_version = meson.project_version()

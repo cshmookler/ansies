@@ -50,7 +50,8 @@ class ansies(ConanFile):
             self.options.rm_safe("fPIC")
 
     def build_requirements(self):
-        self.tool_requires("meson/[>=1.2.1 <2.0.0]")
+        self.tool_requires("meson/1.2.1")
+        # self.tool_requires("pkgconf/2.0.3")
 
     # def requirements(self):
     #     pass
