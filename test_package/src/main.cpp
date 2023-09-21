@@ -6,11 +6,9 @@
 #include <ansies/version.hpp>
 
 int main() {
-  ansies::enable();
+  ansies::Sequencer es;
 
-  std::cout << ansies::bold << ansies::green_fg
-            << "\nIf this text is green, then the test succeeded!"
-            << ansies::reset << "\n";
-
-  ansies::disable();
+  std::cout << es.bold << es.green_fg
+            << "\nIf this text is green, then the test succeeded!" << es.reset
+            << "\n";
 }

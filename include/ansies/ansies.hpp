@@ -21,96 +21,164 @@
 
 #pragma once
 
-#ifndef ANSIES_ESCAPE_CODE
-#define ANSIES_ESCAPE_CODE "\033["
-#endif
-
-#ifndef ANSIES_INCLUDE_NONE
+#include <memory>
 #include <string_view>
-#endif
 
 namespace ansies {
 
-#ifndef ANSIES_INCLUDE_NONE
 using string_type = std::string_view;
-#else
-using string_type = const char *;
-#endif
 
-auto enable() -> void;
-auto disable() -> void;
+constexpr string_type nothing = "";
 
-constexpr ::ansies::string_type escape = ANSIES_ESCAPE_CODE;
-constexpr ::ansies::string_type reset = ANSIES_ESCAPE_CODE "0m";
-constexpr ::ansies::string_type bold = ANSIES_ESCAPE_CODE "1m";
-constexpr ::ansies::string_type faint = ANSIES_ESCAPE_CODE "2m";
-constexpr ::ansies::string_type italic = ANSIES_ESCAPE_CODE "3m";
-constexpr ::ansies::string_type underline = ANSIES_ESCAPE_CODE "4m";
-constexpr ::ansies::string_type slow_blink = ANSIES_ESCAPE_CODE "5m";
-constexpr ::ansies::string_type rapid_blink = ANSIES_ESCAPE_CODE "6m";
-constexpr ::ansies::string_type invert = ANSIES_ESCAPE_CODE "7m";
-constexpr ::ansies::string_type hide = ANSIES_ESCAPE_CODE "8m";
-constexpr ::ansies::string_type strike = ANSIES_ESCAPE_CODE "9m";
-constexpr ::ansies::string_type reset_font = ANSIES_ESCAPE_CODE "10m";
-constexpr ::ansies::string_type alt_font_1 = ANSIES_ESCAPE_CODE "11m";
-constexpr ::ansies::string_type alt_font_2 = ANSIES_ESCAPE_CODE "12m";
-constexpr ::ansies::string_type alt_font_3 = ANSIES_ESCAPE_CODE "13m";
-constexpr ::ansies::string_type alt_font_4 = ANSIES_ESCAPE_CODE "14m";
-constexpr ::ansies::string_type alt_font_5 = ANSIES_ESCAPE_CODE "15m";
-constexpr ::ansies::string_type alt_font_6 = ANSIES_ESCAPE_CODE "16m";
-constexpr ::ansies::string_type alt_font_7 = ANSIES_ESCAPE_CODE "17m";
-constexpr ::ansies::string_type alt_font_8 = ANSIES_ESCAPE_CODE "18m";
-constexpr ::ansies::string_type alt_font_9 = ANSIES_ESCAPE_CODE "19m";
-constexpr ::ansies::string_type fraktur = ANSIES_ESCAPE_CODE "20m";
-constexpr ::ansies::string_type double_underline = ANSIES_ESCAPE_CODE "21m";
-constexpr ::ansies::string_type reset_intensity = ANSIES_ESCAPE_CODE "22m";
-constexpr ::ansies::string_type no_italic = ANSIES_ESCAPE_CODE "23m";
-constexpr ::ansies::string_type no_underline = ANSIES_ESCAPE_CODE "24m";
-constexpr ::ansies::string_type no_blink = ANSIES_ESCAPE_CODE "25m";
-constexpr ::ansies::string_type proportional_spacing = ANSIES_ESCAPE_CODE "26m";
-constexpr ::ansies::string_type no_invert = ANSIES_ESCAPE_CODE "27m";
-constexpr ::ansies::string_type show = ANSIES_ESCAPE_CODE "28m";
-constexpr ::ansies::string_type no_strike = ANSIES_ESCAPE_CODE "29m";
-constexpr ::ansies::string_type black_fg = ANSIES_ESCAPE_CODE "30m";
-constexpr ::ansies::string_type red_fg = ANSIES_ESCAPE_CODE "31m";
-constexpr ::ansies::string_type green_fg = ANSIES_ESCAPE_CODE "32m";
-constexpr ::ansies::string_type yellow_fg = ANSIES_ESCAPE_CODE "33m";
-constexpr ::ansies::string_type blue_fg = ANSIES_ESCAPE_CODE "34m";
-constexpr ::ansies::string_type magenta_fg = ANSIES_ESCAPE_CODE "35m";
-constexpr ::ansies::string_type cyan_fg = ANSIES_ESCAPE_CODE "36m";
-constexpr ::ansies::string_type white_fg = ANSIES_ESCAPE_CODE "37m";
-constexpr ::ansies::string_type reset_fg = ANSIES_ESCAPE_CODE "39m";
-constexpr ::ansies::string_type black_bg = ANSIES_ESCAPE_CODE "40m";
-constexpr ::ansies::string_type red_bg = ANSIES_ESCAPE_CODE "41m";
-constexpr ::ansies::string_type green_bg = ANSIES_ESCAPE_CODE "42m";
-constexpr ::ansies::string_type yellow_bg = ANSIES_ESCAPE_CODE "43m";
-constexpr ::ansies::string_type blue_bg = ANSIES_ESCAPE_CODE "44m";
-constexpr ::ansies::string_type magenta_bg = ANSIES_ESCAPE_CODE "45m";
-constexpr ::ansies::string_type cyan_bg = ANSIES_ESCAPE_CODE "46m";
-constexpr ::ansies::string_type white_bg = ANSIES_ESCAPE_CODE "47m";
-constexpr ::ansies::string_type reset_bg = ANSIES_ESCAPE_CODE "49m";
-constexpr ::ansies::string_type no_proportional_spacing =
-    ANSIES_ESCAPE_CODE "50m";
-constexpr ::ansies::string_type framed = ANSIES_ESCAPE_CODE "51m";
-constexpr ::ansies::string_type encircled = ANSIES_ESCAPE_CODE "52m";
-constexpr ::ansies::string_type overlined = ANSIES_ESCAPE_CODE "53m";
-constexpr ::ansies::string_type no_encircled_no_overlined =
-    ANSIES_ESCAPE_CODE "54m";
-constexpr ::ansies::string_type black_bfg = ANSIES_ESCAPE_CODE "90m";
-constexpr ::ansies::string_type red_bfg = ANSIES_ESCAPE_CODE "91m";
-constexpr ::ansies::string_type green_bfg = ANSIES_ESCAPE_CODE "92m";
-constexpr ::ansies::string_type yellow_bfg = ANSIES_ESCAPE_CODE "93m";
-constexpr ::ansies::string_type blue_bfg = ANSIES_ESCAPE_CODE "94m";
-constexpr ::ansies::string_type magenta_bfg = ANSIES_ESCAPE_CODE "95m";
-constexpr ::ansies::string_type cyan_bfg = ANSIES_ESCAPE_CODE "96m";
-constexpr ::ansies::string_type white_bfg = ANSIES_ESCAPE_CODE "97m";
-constexpr ::ansies::string_type black_bbg = ANSIES_ESCAPE_CODE "100m";
-constexpr ::ansies::string_type red_bbg = ANSIES_ESCAPE_CODE "101m";
-constexpr ::ansies::string_type green_bbg = ANSIES_ESCAPE_CODE "102m";
-constexpr ::ansies::string_type yellow_bbg = ANSIES_ESCAPE_CODE "103m";
-constexpr ::ansies::string_type blue_bbg = ANSIES_ESCAPE_CODE "104m";
-constexpr ::ansies::string_type magenta_bbg = ANSIES_ESCAPE_CODE "105m";
-constexpr ::ansies::string_type cyan_bbg = ANSIES_ESCAPE_CODE "106m";
-constexpr ::ansies::string_type white_bbg = ANSIES_ESCAPE_CODE "107m";
+class Sequencer {
+  class Impl;
+  std::shared_ptr<Impl> impl_;
+
+  string_type escape_ = nothing;
+  string_type reset_ = nothing;
+  string_type bold_ = nothing;
+  string_type faint_ = nothing;
+  string_type italic_ = nothing;
+  string_type underline_ = nothing;
+  string_type slow_blink_ = nothing;
+  string_type rapid_blink_ = nothing;
+  string_type invert_ = nothing;
+  string_type hide_ = nothing;
+  string_type strike_ = nothing;
+  string_type reset_font_ = nothing;
+  string_type alt_font_1_ = nothing;
+  string_type alt_font_2_ = nothing;
+  string_type alt_font_3_ = nothing;
+  string_type alt_font_4_ = nothing;
+  string_type alt_font_5_ = nothing;
+  string_type alt_font_6_ = nothing;
+  string_type alt_font_7_ = nothing;
+  string_type alt_font_8_ = nothing;
+  string_type alt_font_9_ = nothing;
+  string_type fraktur_ = nothing;
+  string_type double_underline_ = nothing;
+  string_type reset_intensity_ = nothing;
+  string_type no_italic_ = nothing;
+  string_type no_underline_ = nothing;
+  string_type no_blink_ = nothing;
+  string_type proportional_spacing_ = nothing;
+  string_type no_invert_ = nothing;
+  string_type show_ = nothing;
+  string_type no_strike_ = nothing;
+  string_type black_fg_ = nothing;
+  string_type red_fg_ = nothing;
+  string_type green_fg_ = nothing;
+  string_type yellow_fg_ = nothing;
+  string_type blue_fg_ = nothing;
+  string_type magenta_fg_ = nothing;
+  string_type cyan_fg_ = nothing;
+  string_type white_fg_ = nothing;
+  string_type reset_fg_ = nothing;
+  string_type black_bg_ = nothing;
+  string_type red_bg_ = nothing;
+  string_type green_bg_ = nothing;
+  string_type yellow_bg_ = nothing;
+  string_type blue_bg_ = nothing;
+  string_type magenta_bg_ = nothing;
+  string_type cyan_bg_ = nothing;
+  string_type white_bg_ = nothing;
+  string_type reset_bg_ = nothing;
+  string_type no_proportional_spacing_ = nothing;
+  string_type framed_ = nothing;
+  string_type encircled_ = nothing;
+  string_type overlined_ = nothing;
+  string_type no_encircled_no_overlined_ = nothing;
+  string_type black_bfg_ = nothing;
+  string_type red_bfg_ = nothing;
+  string_type green_bfg_ = nothing;
+  string_type yellow_bfg_ = nothing;
+  string_type blue_bfg_ = nothing;
+  string_type magenta_bfg_ = nothing;
+  string_type cyan_bfg_ = nothing;
+  string_type white_bfg_ = nothing;
+  string_type black_bbg_ = nothing;
+  string_type red_bbg_ = nothing;
+  string_type green_bbg_ = nothing;
+  string_type yellow_bbg_ = nothing;
+  string_type blue_bbg_ = nothing;
+  string_type magenta_bbg_ = nothing;
+  string_type cyan_bbg_ = nothing;
+  string_type white_bbg_ = nothing;
+
+public:
+  const string_type &escape = this->escape_;
+  const string_type &reset = this->reset_;
+  const string_type &bold = this->bold_;
+  const string_type &faint = this->faint_;
+  const string_type &italic = this->italic_;
+  const string_type &underline = this->underline_;
+  const string_type &slow_blink = this->slow_blink_;
+  const string_type &rapid_blink = this->rapid_blink_;
+  const string_type &invert = this->invert_;
+  const string_type &hide = this->hide_;
+  const string_type &strike = this->strike_;
+  const string_type &reset_font = this->reset_font_;
+  const string_type &alt_font_1 = this->alt_font_1_;
+  const string_type &alt_font_2 = this->alt_font_2_;
+  const string_type &alt_font_3 = this->alt_font_3_;
+  const string_type &alt_font_4 = this->alt_font_4_;
+  const string_type &alt_font_5 = this->alt_font_5_;
+  const string_type &alt_font_6 = this->alt_font_6_;
+  const string_type &alt_font_7 = this->alt_font_7_;
+  const string_type &alt_font_8 = this->alt_font_8_;
+  const string_type &alt_font_9 = this->alt_font_9_;
+  const string_type &fraktur = this->fraktur_;
+  const string_type &double_underline = this->double_underline_;
+  const string_type &reset_intensity = this->reset_intensity_;
+  const string_type &no_italic = this->no_italic_;
+  const string_type &no_underline = this->no_underline_;
+  const string_type &no_blink = this->no_blink_;
+  const string_type &proportional_spacing = this->proportional_spacing_;
+  const string_type &no_invert = this->no_invert_;
+  const string_type &show = this->show_;
+  const string_type &no_strike = this->no_strike_;
+  const string_type &black_fg = this->black_fg_;
+  const string_type &red_fg = this->red_fg_;
+  const string_type &green_fg = this->green_fg_;
+  const string_type &yellow_fg = this->yellow_fg_;
+  const string_type &blue_fg = this->blue_fg_;
+  const string_type &magenta_fg = this->magenta_fg_;
+  const string_type &cyan_fg = this->cyan_fg_;
+  const string_type &white_fg = this->white_fg_;
+  const string_type &reset_fg = this->reset_fg_;
+  const string_type &black_bg = this->black_bg_;
+  const string_type &red_bg = this->red_bg_;
+  const string_type &green_bg = this->green_bg_;
+  const string_type &yellow_bg = this->yellow_bg_;
+  const string_type &blue_bg = this->blue_bg_;
+  const string_type &magenta_bg = this->magenta_bg_;
+  const string_type &cyan_bg = this->cyan_bg_;
+  const string_type &white_bg = this->white_bg_;
+  const string_type &reset_bg = this->reset_bg_;
+  const string_type &no_proportional_spacing = this->no_proportional_spacing_;
+  const string_type &framed = this->framed_;
+  const string_type &encircled = this->encircled_;
+  const string_type &overlined = this->overlined_;
+  const string_type &no_encircled_no_overlined =
+      this->no_encircled_no_overlined_;
+  const string_type &black_bfg = this->black_bfg_;
+  const string_type &red_bfg = this->red_bfg_;
+  const string_type &green_bfg = this->green_bfg_;
+  const string_type &yellow_bfg = this->yellow_bfg_;
+  const string_type &blue_bfg = this->blue_bfg_;
+  const string_type &magenta_bfg = this->magenta_bfg_;
+  const string_type &cyan_bfg = this->cyan_bfg_;
+  const string_type &white_bfg = this->white_bfg_;
+  const string_type &black_bbg = this->black_bbg_;
+  const string_type &red_bbg = this->red_bbg_;
+  const string_type &green_bbg = this->green_bbg_;
+  const string_type &yellow_bbg = this->yellow_bbg_;
+  const string_type &blue_bbg = this->blue_bbg_;
+  const string_type &magenta_bbg = this->magenta_bbg_;
+  const string_type &cyan_bbg = this->cyan_bbg_;
+  const string_type &white_bbg = this->white_bbg_;
+
+  Sequencer();
+};
 
 } // namespace ansies
