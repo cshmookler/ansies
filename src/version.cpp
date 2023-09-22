@@ -24,7 +24,7 @@
 namespace ansies {
 
 auto get_runtime_version() -> const char* {
-  return ::ansies::compiletime_version;
+    return ::ansies::compiletime_version;
 }
 
 } // namespace ansies

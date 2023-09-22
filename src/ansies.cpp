@@ -23,7 +23,7 @@
 #include "../include/ansies/version.hpp"
 
 #ifdef _WIN32
-#include <windows.h>
+    #include <windows.h>
 #endif
 
 #define ANSIES_ESCAPE_CODE "\033"
@@ -105,128 +105,130 @@ constexpr ::ansies::string_type cyan_bbg = ANSIES_ESCAPE_CODE "[106m";
 constexpr ::ansies::string_type white_bbg = ANSIES_ESCAPE_CODE "[107m";
 
 class Sequencer::Impl {
-
-  bool escape_sequences_enabled = false;
+    bool escape_sequences_enabled_ = false;
 
 #ifdef _WIN32
-  HANDLE std_output_handle = INVALID_HANDLE_VALUE;
-  DWORD initial_output_mode = ENABLE_PROCESSED_OUTPUT;
+    HANDLE std_output_handle_ = INVALID_HANDLE_VALUE;
+    DWORD initial_output_mode_ = ENABLE_PROCESSED_OUTPUT;
 #endif
 
 public:
-  Impl() noexcept {
+    Impl() noexcept {
 #ifdef _WIN32
-    /// @todo Make thread safe.
-    // Get the standard output handle.
-    this->std_output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (this->std_output_handle == INVALID_HANDLE_VALUE)
-      return;
+        /// @todo Make thread safe.
+        // Get the standard output handle.
+        this->std_output_handle_ = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (this->std_output_handle_ == INVALID_HANDLE_VALUE)
+            return;
 
-    // Get the current console output mode.
-    if (!GetConsoleMode(this->std_output_handle, &this->initial_output_mode))
-      return;
-    if (!this->initial_output_mode)
-      return;
+        // Get the current console output mode.
+        if (! GetConsoleMode(
+                this->std_output_handle_, &this->initial_output_mode_))
+            return;
+        if (! this->initial_output_mode_)
+            return;
 
-    // Enable virtual terminal processing.
-    DWORD new_console_mode =
-        this->initial_output_mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-    if (!SetConsoleMode(this->std_output_handle, new_console_mode))
-      return;
+        // Enable virtual terminal processing.
+        DWORD new_console_mode =
+            this->initial_output_mode_ | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+        if (! SetConsoleMode(this->std_output_handle_, new_console_mode))
+            return;
 #endif
-    this->escape_sequences_enabled = true;
-  }
+        this->escape_sequences_enabled_ = true;
+    }
 
-  Impl(const Impl &) = delete;
-  Impl(Impl &&) noexcept = delete;
-  auto operator=(const Impl &) -> Impl & = delete;
-  auto operator=(Impl &&) noexcept -> Impl & = delete;
+    Impl(const Impl&) = delete;
+    Impl(Impl&&) noexcept = delete;
+    auto operator=(const Impl&) -> Impl& = delete;
+    auto operator=(Impl&&) noexcept -> Impl& = delete;
 
-  ~Impl() {
+    ~Impl() { // NOLINT
 #ifdef _WIN32
-    /// @todo Make thread safe.
-    // Attempt to reset the console output mode. Do nothing if it fails.
-    SetConsoleMode(this->std_output_handle, this->initial_output_mode);
+        /// @todo Make thread safe.
+        // Attempt to reset the console output mode. Do nothing if it fails.
+        SetConsoleMode(this->std_output_handle_, this->initial_output_mode_);
 #endif
-  }
+    }
 
-  bool enabled() const noexcept { return this->escape_sequences_enabled; }
+    [[nodiscard]] auto enabled() const noexcept -> bool {
+        return this->escape_sequences_enabled_;
+    }
 };
 
 Sequencer::Sequencer() : impl_(std::make_shared<::ansies::Sequencer::Impl>()) {
-  if (!this->impl_->enabled())
-    return;
+    if (! this->impl_->enabled())
+        return;
 
-  this->escape_ = ::ansies::escape;
-  this->reset_ = ::ansies::reset;
-  this->bold_ = ::ansies::bold;
-  this->faint_ = ::ansies::faint;
-  this->italic_ = ::ansies::italic;
-  this->underline_ = ::ansies::underline;
-  this->slow_blink_ = ::ansies::slow_blink;
-  this->rapid_blink_ = ::ansies::rapid_blink;
-  this->invert_ = ::ansies::invert;
-  this->hide_ = ::ansies::hide;
-  this->strike_ = ::ansies::strike;
-  this->reset_font_ = ::ansies::reset_font;
-  this->alt_font_1_ = ::ansies::alt_font_1;
-  this->alt_font_2_ = ::ansies::alt_font_2;
-  this->alt_font_3_ = ::ansies::alt_font_3;
-  this->alt_font_4_ = ::ansies::alt_font_4;
-  this->alt_font_5_ = ::ansies::alt_font_5;
-  this->alt_font_6_ = ::ansies::alt_font_6;
-  this->alt_font_7_ = ::ansies::alt_font_7;
-  this->alt_font_8_ = ::ansies::alt_font_8;
-  this->alt_font_9_ = ::ansies::alt_font_9;
-  this->fraktur_ = ::ansies::fraktur;
-  this->double_underline_ = ::ansies::double_underline;
-  this->reset_intensity_ = ::ansies::reset_intensity;
-  this->no_italic_ = ::ansies::no_italic;
-  this->no_underline_ = ::ansies::no_underline;
-  this->no_blink_ = ::ansies::no_blink;
-  this->proportional_spacing_ = ::ansies::proportional_spacing;
-  this->no_invert_ = ::ansies::no_invert;
-  this->show_ = ::ansies::show;
-  this->no_strike_ = ::ansies::no_strike;
-  this->black_fg_ = ::ansies::black_fg;
-  this->red_fg_ = ::ansies::red_fg;
-  this->green_fg_ = ::ansies::green_fg;
-  this->yellow_fg_ = ::ansies::yellow_fg;
-  this->blue_fg_ = ::ansies::blue_fg;
-  this->magenta_fg_ = ::ansies::magenta_fg;
-  this->cyan_fg_ = ::ansies::cyan_fg;
-  this->white_fg_ = ::ansies::white_fg;
-  this->reset_fg_ = ::ansies::reset_fg;
-  this->black_bg_ = ::ansies::black_bg;
-  this->red_bg_ = ::ansies::red_bg;
-  this->green_bg_ = ::ansies::green_bg;
-  this->yellow_bg_ = ::ansies::yellow_bg;
-  this->blue_bg_ = ::ansies::blue_bg;
-  this->magenta_bg_ = ::ansies::magenta_bg;
-  this->cyan_bg_ = ::ansies::cyan_bg;
-  this->white_bg_ = ::ansies::white_bg;
-  this->reset_bg_ = ::ansies::reset_bg;
-  this->no_proportional_spacing_ = ::ansies::no_proportional_spacing;
-  this->framed_ = ::ansies::framed;
-  this->encircled_ = ::ansies::encircled;
-  this->overlined_ = ::ansies::overlined;
-  this->no_encircled_no_overlined_ = ::ansies::no_encircled_no_overlined;
-  this->black_bfg_ = ::ansies::black_bfg;
-  this->red_bfg_ = ::ansies::red_bfg;
-  this->green_bfg_ = ::ansies::green_bfg;
-  this->yellow_bfg_ = ::ansies::yellow_bfg;
-  this->blue_bfg_ = ::ansies::blue_bfg;
-  this->magenta_bfg_ = ::ansies::magenta_bfg;
-  this->cyan_bfg_ = ::ansies::cyan_bfg;
-  this->white_bfg_ = ::ansies::white_bfg;
-  this->black_bbg_ = ::ansies::black_bbg;
-  this->red_bbg_ = ::ansies::red_bbg;
-  this->green_bbg_ = ::ansies::green_bbg;
-  this->yellow_bbg_ = ::ansies::yellow_bbg;
-  this->blue_bbg_ = ::ansies::blue_bbg;
-  this->magenta_bbg_ = ::ansies::magenta_bbg;
-  this->cyan_bbg_ = ::ansies::cyan_bbg;
-  this->white_bbg_ = ::ansies::white_bbg;
+    this->escape_ = ::ansies::escape;
+    this->reset_ = ::ansies::reset;
+    this->bold_ = ::ansies::bold;
+    this->faint_ = ::ansies::faint;
+    this->italic_ = ::ansies::italic;
+    this->underline_ = ::ansies::underline;
+    this->slow_blink_ = ::ansies::slow_blink;
+    this->rapid_blink_ = ::ansies::rapid_blink;
+    this->invert_ = ::ansies::invert;
+    this->hide_ = ::ansies::hide;
+    this->strike_ = ::ansies::strike;
+    this->reset_font_ = ::ansies::reset_font;
+    this->alt_font_1_ = ::ansies::alt_font_1;
+    this->alt_font_2_ = ::ansies::alt_font_2;
+    this->alt_font_3_ = ::ansies::alt_font_3;
+    this->alt_font_4_ = ::ansies::alt_font_4;
+    this->alt_font_5_ = ::ansies::alt_font_5;
+    this->alt_font_6_ = ::ansies::alt_font_6;
+    this->alt_font_7_ = ::ansies::alt_font_7;
+    this->alt_font_8_ = ::ansies::alt_font_8;
+    this->alt_font_9_ = ::ansies::alt_font_9;
+    this->fraktur_ = ::ansies::fraktur;
+    this->double_underline_ = ::ansies::double_underline;
+    this->reset_intensity_ = ::ansies::reset_intensity;
+    this->no_italic_ = ::ansies::no_italic;
+    this->no_underline_ = ::ansies::no_underline;
+    this->no_blink_ = ::ansies::no_blink;
+    this->proportional_spacing_ = ::ansies::proportional_spacing;
+    this->no_invert_ = ::ansies::no_invert;
+    this->show_ = ::ansies::show;
+    this->no_strike_ = ::ansies::no_strike;
+    this->black_fg_ = ::ansies::black_fg;
+    this->red_fg_ = ::ansies::red_fg;
+    this->green_fg_ = ::ansies::green_fg;
+    this->yellow_fg_ = ::ansies::yellow_fg;
+    this->blue_fg_ = ::ansies::blue_fg;
+    this->magenta_fg_ = ::ansies::magenta_fg;
+    this->cyan_fg_ = ::ansies::cyan_fg;
+    this->white_fg_ = ::ansies::white_fg;
+    this->reset_fg_ = ::ansies::reset_fg;
+    this->black_bg_ = ::ansies::black_bg;
+    this->red_bg_ = ::ansies::red_bg;
+    this->green_bg_ = ::ansies::green_bg;
+    this->yellow_bg_ = ::ansies::yellow_bg;
+    this->blue_bg_ = ::ansies::blue_bg;
+    this->magenta_bg_ = ::ansies::magenta_bg;
+    this->cyan_bg_ = ::ansies::cyan_bg;
+    this->white_bg_ = ::ansies::white_bg;
+    this->reset_bg_ = ::ansies::reset_bg;
+    this->no_proportional_spacing_ = ::ansies::no_proportional_spacing;
+    this->framed_ = ::ansies::framed;
+    this->encircled_ = ::ansies::encircled;
+    this->overlined_ = ::ansies::overlined;
+    this->no_encircled_no_overlined_ = ::ansies::no_encircled_no_overlined;
+    this->black_bfg_ = ::ansies::black_bfg;
+    this->red_bfg_ = ::ansies::red_bfg;
+    this->green_bfg_ = ::ansies::green_bfg;
+    this->yellow_bfg_ = ::ansies::yellow_bfg;
+    this->blue_bfg_ = ::ansies::blue_bfg;
+    this->magenta_bfg_ = ::ansies::magenta_bfg;
+    this->cyan_bfg_ = ::ansies::cyan_bfg;
+    this->white_bfg_ = ::ansies::white_bfg;
+    this->black_bbg_ = ::ansies::black_bbg;
+    this->red_bbg_ = ::ansies::red_bbg;
+    this->green_bbg_ = ::ansies::green_bbg;
+    this->yellow_bbg_ = ::ansies::yellow_bbg;
+    this->blue_bbg_ = ::ansies::blue_bbg;
+    this->magenta_bbg_ = ::ansies::magenta_bbg;
+    this->cyan_bbg_ = ::ansies::cyan_bbg;
+    this->white_bbg_ = ::ansies::white_bbg;
 }
 
 } // namespace ansies
