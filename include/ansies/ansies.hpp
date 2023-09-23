@@ -105,7 +105,10 @@ class Sequencer {
     string_type cyan_bbg_ = nothing;
     string_type white_bbg_ = nothing;
 
-public:
+  public:
+    // NOLINTBEGIN(misc-non-private-member-variables-in-classes,
+    // cppcoreguidelines-avoid-const-or-ref-data-members,
+    // cppcoreguidelines-non-private-member-variables-in-classes)
     const string_type& escape = this->escape_;
     const string_type& reset = this->reset_;
     const string_type& bold = this->bold_;
@@ -177,6 +180,9 @@ public:
     const string_type& magenta_bbg = this->magenta_bbg_;
     const string_type& cyan_bbg = this->cyan_bbg_;
     const string_type& white_bbg = this->white_bbg_;
+    // NOLINTEND(misc-non-private-member-variables-in-classes,
+    // cppcoreguidelines-avoid-const-or-ref-data-members,
+    // cppcoreguidelines-non-private-member-variables-in-classes)
 
     Sequencer();
 };

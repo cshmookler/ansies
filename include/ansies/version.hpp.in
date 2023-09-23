@@ -24,6 +24,6 @@
 namespace ansies {
 
 constexpr const char* compiletime_version = "@version@";
-auto get_runtime_version() -> const char*;
+const char* get_runtime_version();
 
 } // namespace ansies

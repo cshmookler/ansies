@@ -1,0 +1,11 @@
+{
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "files.associations": {
+        "*.py": "python",
+        "meson.build": "meson",
+        ".md": "markdown",
+        ".clang-format": "yaml",
+        ".clang-tidy": "yaml"
+    }
+}

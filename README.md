@@ -2,7 +2,7 @@
 A cross-platform C++ library for using ANSI escape sequences. Supported on Windows and Unix-like operating systems.
 
 ### **Build from source and install using Conan 2 (for Unix-like systems)**
-**1.** Install a C++ compiler (Example: g++), Git, Python >=3.7, and the Python Virtual Environment using the system package manager (Example: apt).
+**1.** Install a C++ compiler that supports C++17 or higher (Example: g++), Git, Python >=3.7, and the Python Virtual Environment using the system package manager (Example: apt).
 ```bash
 $ sudo apt install g++ git python3 python3-venv
 ```
@@ -15,7 +15,7 @@ $ source venv/bin/activate
 ```bash
 $ pip3 install "conan>=2.0.0"
 ```
-**4.** Create the default Conan profile. Ensure that it is configured to use C++11 or higher.
+**4.** Create the default Conan profile. Ensure that it is configured to use C++17 or higher.
 ```bash
 $ conan profile detect
 ```
@@ -30,7 +30,7 @@ $ conan create .
 ```
 
 ### **Build from source and install using Conan 2 (for Windows)**
-**1.** Download and install a C++ compiler that supports C++11 or higher (Example: MSVC).
+**1.** Download and install a C++ compiler that supports C++17 or higher (Example: MSVC).
 
 **2.** Download and install Python >=3.7 from https://www.python.org/downloads/ (Make sure you add python.exe to your PATH during installation!).
 
@@ -54,7 +54,7 @@ $ conan create .
 ```shell
 > pip install "conan>=2.0.0"
 ```
-**8.** Create the default Conan profile. It should detect the C++ compiler you installed earlier. Ensure that it is configured to use C++11 or higher.
+**8.** Create the default Conan profile. It should detect the C++ compiler you installed earlier. Ensure that it is configured to use C++17 or higher.
 ```shell
 > conan profile detect
 ```

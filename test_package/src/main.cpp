@@ -6,9 +6,9 @@
 #include <ansies/version.hpp>
 
 int main() {
-  ansies::Sequencer es;
+    ansies::Sequencer esr; // Escape SequenceR
 
-  std::cout << es.bold << es.green_fg
-            << "\nIf this text is green, then the test succeeded!" << es.reset
-            << "\n";
+    std::cout << esr.bold << esr.green_fg
+              << "\nIf this text is green, then the test succeeded!"
+              << esr.reset << "\n";
 }

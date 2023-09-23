@@ -112,35 +112,40 @@ class Sequencer::Impl {
     DWORD initial_output_mode_ = ENABLE_PROCESSED_OUTPUT;
 #endif
 
-public:
+  public:
     Impl() noexcept {
 #ifdef _WIN32
         /// @todo Make thread safe.
         // Get the standard output handle.
         this->std_output_handle_ = GetStdHandle(STD_OUTPUT_HANDLE);
-        if (this->std_output_handle_ == INVALID_HANDLE_VALUE)
+        if (this->std_output_handle_ == INVALID_HANDLE_VALUE) {
             return;
+        }
 
         // Get the current console output mode.
         if (! GetConsoleMode(
-                this->std_output_handle_, &this->initial_output_mode_))
+                this->std_output_handle_, &this->initial_output_mode_)) {
             return;
-        if (! this->initial_output_mode_)
+        }
+        if (! this->initial_output_mode_) {
             return;
+        }
 
         // Enable virtual terminal processing.
         DWORD new_console_mode =
             this->initial_output_mode_ | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-        if (! SetConsoleMode(this->std_output_handle_, new_console_mode))
+        if (! SetConsoleMode(this->std_output_handle_, new_console_mode)) {
             return;
+        }
 #endif
+        // NOLINTNEXTLINE(cppcoreguidelines-prefer-member-initializer)
         this->escape_sequences_enabled_ = true;
     }
 
     Impl(const Impl&) = delete;
     Impl(Impl&&) noexcept = delete;
-    auto operator=(const Impl&) -> Impl& = delete;
-    auto operator=(Impl&&) noexcept -> Impl& = delete;
+    Impl& operator=(const Impl&) = delete;
+    Impl& operator=(Impl&&) noexcept = delete;
 
     ~Impl() { // NOLINT
 #ifdef _WIN32
@@ -150,14 +155,15 @@ public:
 #endif
     }
 
-    [[nodiscard]] auto enabled() const noexcept -> bool {
+    [[nodiscard]] bool enabled() const noexcept {
         return this->escape_sequences_enabled_;
     }
 };
 
 Sequencer::Sequencer() : impl_(std::make_shared<::ansies::Sequencer::Impl>()) {
-    if (! this->impl_->enabled())
+    if (! this->impl_->enabled()) {
         return;
+    }
 
     this->escape_ = ::ansies::escape;
     this->reset_ = ::ansies::reset;
