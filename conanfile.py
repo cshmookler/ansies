@@ -39,7 +39,11 @@ class ansies(ConanFile):
 
     def set_version(self):
         git = Git(self, folder=self.recipe_folder)
-        self.version = git.run("describe --tags")
+        full_version = git.run("describe --tags")
+        fragmented_version = full_version.split("-")
+        if len(fragmented_version) > 1:
+            fragmented_version = [fragmented_version[0], fragmented_version[1]]
+        self.version = ".".join(fragmented_version)
 
     def config_options(self):
         if self.settings.os == "Windows":

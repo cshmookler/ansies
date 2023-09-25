@@ -26,83 +26,98 @@
     #include <windows.h>
 #endif
 
-#define ANSIES_ESCAPE_CODE "\033"
+#define ANSIES_ESC "\033"
+#define ANSIES_CSI ANSIES_ESC "["
+#define ANSIES_DCS ANSIES_ESC "P"
+#define ANSIES_OSC ANSIES_ESC "]"
+
+#define ANSIES_CURSOR_UP "A"
+#define ANSIES_CURSOR_DOWN "B"
+#define ANSIES_CURSOR_FORWARD "C"
+#define ANSIES_CURSOR_BACK "D"
+#define ANSIES_CURSOR_NEXT_LINE "E"
+#define ANSIES_CURSOR_PREVIOUS_LINE "F"
+#define ANSIES_CURSOR_COLUMN "G"
+
+#define ANSIES_GRAPHICS "m"
 
 namespace ansies {
 
-constexpr ::ansies::string_type escape = ANSIES_ESCAPE_CODE;
-constexpr ::ansies::string_type reset = ANSIES_ESCAPE_CODE "[0m";
-constexpr ::ansies::string_type bold = ANSIES_ESCAPE_CODE "[1m";
-constexpr ::ansies::string_type faint = ANSIES_ESCAPE_CODE "[2m";
-constexpr ::ansies::string_type italic = ANSIES_ESCAPE_CODE "[3m";
-constexpr ::ansies::string_type underline = ANSIES_ESCAPE_CODE "[4m";
-constexpr ::ansies::string_type slow_blink = ANSIES_ESCAPE_CODE "[5m";
-constexpr ::ansies::string_type rapid_blink = ANSIES_ESCAPE_CODE "[6m";
-constexpr ::ansies::string_type invert = ANSIES_ESCAPE_CODE "[7m";
-constexpr ::ansies::string_type hide = ANSIES_ESCAPE_CODE "[8m";
-constexpr ::ansies::string_type strike = ANSIES_ESCAPE_CODE "[9m";
-constexpr ::ansies::string_type reset_font = ANSIES_ESCAPE_CODE "[10m";
-constexpr ::ansies::string_type alt_font_1 = ANSIES_ESCAPE_CODE "[11m";
-constexpr ::ansies::string_type alt_font_2 = ANSIES_ESCAPE_CODE "[12m";
-constexpr ::ansies::string_type alt_font_3 = ANSIES_ESCAPE_CODE "[13m";
-constexpr ::ansies::string_type alt_font_4 = ANSIES_ESCAPE_CODE "[14m";
-constexpr ::ansies::string_type alt_font_5 = ANSIES_ESCAPE_CODE "[15m";
-constexpr ::ansies::string_type alt_font_6 = ANSIES_ESCAPE_CODE "[16m";
-constexpr ::ansies::string_type alt_font_7 = ANSIES_ESCAPE_CODE "[17m";
-constexpr ::ansies::string_type alt_font_8 = ANSIES_ESCAPE_CODE "[18m";
-constexpr ::ansies::string_type alt_font_9 = ANSIES_ESCAPE_CODE "[19m";
-constexpr ::ansies::string_type fraktur = ANSIES_ESCAPE_CODE "[20m";
-constexpr ::ansies::string_type double_underline = ANSIES_ESCAPE_CODE "[21m";
-constexpr ::ansies::string_type reset_intensity = ANSIES_ESCAPE_CODE "[22m";
-constexpr ::ansies::string_type no_italic = ANSIES_ESCAPE_CODE "[23m";
-constexpr ::ansies::string_type no_underline = ANSIES_ESCAPE_CODE "[24m";
-constexpr ::ansies::string_type no_blink = ANSIES_ESCAPE_CODE "[25m";
+constexpr ::ansies::string_type escape = ANSIES_ESC;
+constexpr ::ansies::string_type reset = ANSIES_CSI "0" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type bold = ANSIES_CSI "1" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type faint = ANSIES_CSI "2" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type italic = ANSIES_CSI "3" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type underline = ANSIES_CSI "4" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type slow_blink = ANSIES_CSI "5" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type rapid_blink = ANSIES_CSI "6" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type invert = ANSIES_CSI "7" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type hide = ANSIES_CSI "8" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type strike = ANSIES_CSI "9" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type reset_font = ANSIES_CSI "10" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_1 = ANSIES_CSI "11" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_2 = ANSIES_CSI "12" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_3 = ANSIES_CSI "13" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_4 = ANSIES_CSI "14" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_5 = ANSIES_CSI "15" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_6 = ANSIES_CSI "16" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_7 = ANSIES_CSI "17" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_8 = ANSIES_CSI "18" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type alt_font_9 = ANSIES_CSI "19" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type fraktur = ANSIES_CSI "20" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type double_underline =
+    ANSIES_CSI "21" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type reset_intensity =
+    ANSIES_CSI "22" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type no_italic = ANSIES_CSI "23" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type no_underline = ANSIES_CSI "24" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type no_blink = ANSIES_CSI "25" ANSIES_GRAPHICS;
 constexpr ::ansies::string_type proportional_spacing =
-    ANSIES_ESCAPE_CODE "[26m";
-constexpr ::ansies::string_type no_invert = ANSIES_ESCAPE_CODE "[27m";
-constexpr ::ansies::string_type show = ANSIES_ESCAPE_CODE "[28m";
-constexpr ::ansies::string_type no_strike = ANSIES_ESCAPE_CODE "[29m";
-constexpr ::ansies::string_type black_fg = ANSIES_ESCAPE_CODE "[30m";
-constexpr ::ansies::string_type red_fg = ANSIES_ESCAPE_CODE "[31m";
-constexpr ::ansies::string_type green_fg = ANSIES_ESCAPE_CODE "[32m";
-constexpr ::ansies::string_type yellow_fg = ANSIES_ESCAPE_CODE "[33m";
-constexpr ::ansies::string_type blue_fg = ANSIES_ESCAPE_CODE "[34m";
-constexpr ::ansies::string_type magenta_fg = ANSIES_ESCAPE_CODE "[35m";
-constexpr ::ansies::string_type cyan_fg = ANSIES_ESCAPE_CODE "[36m";
-constexpr ::ansies::string_type white_fg = ANSIES_ESCAPE_CODE "[37m";
-constexpr ::ansies::string_type reset_fg = ANSIES_ESCAPE_CODE "[39m";
-constexpr ::ansies::string_type black_bg = ANSIES_ESCAPE_CODE "[40m";
-constexpr ::ansies::string_type red_bg = ANSIES_ESCAPE_CODE "[41m";
-constexpr ::ansies::string_type green_bg = ANSIES_ESCAPE_CODE "[42m";
-constexpr ::ansies::string_type yellow_bg = ANSIES_ESCAPE_CODE "[43m";
-constexpr ::ansies::string_type blue_bg = ANSIES_ESCAPE_CODE "[44m";
-constexpr ::ansies::string_type magenta_bg = ANSIES_ESCAPE_CODE "[45m";
-constexpr ::ansies::string_type cyan_bg = ANSIES_ESCAPE_CODE "[46m";
-constexpr ::ansies::string_type white_bg = ANSIES_ESCAPE_CODE "[47m";
-constexpr ::ansies::string_type reset_bg = ANSIES_ESCAPE_CODE "[49m";
+    ANSIES_CSI "26" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type no_invert = ANSIES_CSI "27" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type show = ANSIES_CSI "28" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type no_strike = ANSIES_CSI "29" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type black_fg = ANSIES_CSI "30" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type red_fg = ANSIES_CSI "31" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type green_fg = ANSIES_CSI "32" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type yellow_fg = ANSIES_CSI "33" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type blue_fg = ANSIES_CSI "34" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type magenta_fg = ANSIES_CSI "35" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type cyan_fg = ANSIES_CSI "36" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type white_fg = ANSIES_CSI "37" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type reset_fg = ANSIES_CSI "39" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type black_bg = ANSIES_CSI "40" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type red_bg = ANSIES_CSI "41" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type green_bg = ANSIES_CSI "42" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type yellow_bg = ANSIES_CSI "43" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type blue_bg = ANSIES_CSI "44" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type magenta_bg = ANSIES_CSI "45" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type cyan_bg = ANSIES_CSI "46" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type white_bg = ANSIES_CSI "47" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type reset_bg = ANSIES_CSI "49" ANSIES_GRAPHICS;
 constexpr ::ansies::string_type no_proportional_spacing =
-    ANSIES_ESCAPE_CODE "[50m";
-constexpr ::ansies::string_type framed = ANSIES_ESCAPE_CODE "[51m";
-constexpr ::ansies::string_type encircled = ANSIES_ESCAPE_CODE "[52m";
-constexpr ::ansies::string_type overlined = ANSIES_ESCAPE_CODE "[53m";
+    ANSIES_CSI "50" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type framed = ANSIES_CSI "51" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type encircled = ANSIES_CSI "52" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type overlined = ANSIES_CSI "53" ANSIES_GRAPHICS;
 constexpr ::ansies::string_type no_encircled_no_overlined =
-    ANSIES_ESCAPE_CODE "[54m";
-constexpr ::ansies::string_type black_bfg = ANSIES_ESCAPE_CODE "[90m";
-constexpr ::ansies::string_type red_bfg = ANSIES_ESCAPE_CODE "[91m";
-constexpr ::ansies::string_type green_bfg = ANSIES_ESCAPE_CODE "[92m";
-constexpr ::ansies::string_type yellow_bfg = ANSIES_ESCAPE_CODE "[93m";
-constexpr ::ansies::string_type blue_bfg = ANSIES_ESCAPE_CODE "[94m";
-constexpr ::ansies::string_type magenta_bfg = ANSIES_ESCAPE_CODE "[95m";
-constexpr ::ansies::string_type cyan_bfg = ANSIES_ESCAPE_CODE "[96m";
-constexpr ::ansies::string_type white_bfg = ANSIES_ESCAPE_CODE "[97m";
-constexpr ::ansies::string_type black_bbg = ANSIES_ESCAPE_CODE "[100m";
-constexpr ::ansies::string_type red_bbg = ANSIES_ESCAPE_CODE "[101m";
-constexpr ::ansies::string_type green_bbg = ANSIES_ESCAPE_CODE "[102m";
-constexpr ::ansies::string_type yellow_bbg = ANSIES_ESCAPE_CODE "[103m";
-constexpr ::ansies::string_type blue_bbg = ANSIES_ESCAPE_CODE "[104m";
-constexpr ::ansies::string_type magenta_bbg = ANSIES_ESCAPE_CODE "[105m";
-constexpr ::ansies::string_type cyan_bbg = ANSIES_ESCAPE_CODE "[106m";
-constexpr ::ansies::string_type white_bbg = ANSIES_ESCAPE_CODE "[107m";
+    ANSIES_CSI "54" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type black_lfg = ANSIES_CSI "90" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type red_lfg = ANSIES_CSI "91" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type green_lfg = ANSIES_CSI "92" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type yellow_lfg = ANSIES_CSI "93" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type blue_lfg = ANSIES_CSI "94" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type magenta_lfg = ANSIES_CSI "95" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type cyan_lfg = ANSIES_CSI "96" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type white_lfg = ANSIES_CSI "97" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type black_lbg = ANSIES_CSI "100" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type red_lbg = ANSIES_CSI "101" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type green_lbg = ANSIES_CSI "102" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type yellow_lbg = ANSIES_CSI "103" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type blue_lbg = ANSIES_CSI "104" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type magenta_lbg = ANSIES_CSI "105" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type cyan_lbg = ANSIES_CSI "106" ANSIES_GRAPHICS;
+constexpr ::ansies::string_type white_lbg = ANSIES_CSI "107" ANSIES_GRAPHICS;
 
 class Sequencer::Impl {
     bool escape_sequences_enabled_ = false;
@@ -147,7 +162,8 @@ class Sequencer::Impl {
     Impl& operator=(const Impl&) = delete;
     Impl& operator=(Impl&&) noexcept = delete;
 
-    ~Impl() { // NOLINT
+    // NOLINTNEXTLINE(hicpp-use-equals-default, modernize-use-equals-default)
+    ~Impl() {
 #ifdef _WIN32
         /// @todo Make thread safe.
         // Attempt to reset the console output mode. Do nothing if it fails.
@@ -160,7 +176,12 @@ class Sequencer::Impl {
     }
 };
 
-Sequencer::Sequencer() : impl_(std::make_shared<::ansies::Sequencer::Impl>()) {
+void Sequencer::construct_(bool enabled) {
+    if (! enabled) {
+        return;
+    }
+
+    this->impl_ = std::make_shared<::ansies::Sequencer::Impl>();
     if (! this->impl_->enabled()) {
         return;
     }
@@ -219,22 +240,22 @@ Sequencer::Sequencer() : impl_(std::make_shared<::ansies::Sequencer::Impl>()) {
     this->encircled_ = ::ansies::encircled;
     this->overlined_ = ::ansies::overlined;
     this->no_encircled_no_overlined_ = ::ansies::no_encircled_no_overlined;
-    this->black_bfg_ = ::ansies::black_bfg;
-    this->red_bfg_ = ::ansies::red_bfg;
-    this->green_bfg_ = ::ansies::green_bfg;
-    this->yellow_bfg_ = ::ansies::yellow_bfg;
-    this->blue_bfg_ = ::ansies::blue_bfg;
-    this->magenta_bfg_ = ::ansies::magenta_bfg;
-    this->cyan_bfg_ = ::ansies::cyan_bfg;
-    this->white_bfg_ = ::ansies::white_bfg;
-    this->black_bbg_ = ::ansies::black_bbg;
-    this->red_bbg_ = ::ansies::red_bbg;
-    this->green_bbg_ = ::ansies::green_bbg;
-    this->yellow_bbg_ = ::ansies::yellow_bbg;
-    this->blue_bbg_ = ::ansies::blue_bbg;
-    this->magenta_bbg_ = ::ansies::magenta_bbg;
-    this->cyan_bbg_ = ::ansies::cyan_bbg;
-    this->white_bbg_ = ::ansies::white_bbg;
+    this->black_lfg_ = ::ansies::black_lfg;
+    this->red_lfg_ = ::ansies::red_lfg;
+    this->green_lfg_ = ::ansies::green_lfg;
+    this->yellow_lfg_ = ::ansies::yellow_lfg;
+    this->blue_lfg_ = ::ansies::blue_lfg;
+    this->magenta_lfg_ = ::ansies::magenta_lfg;
+    this->cyan_lfg_ = ::ansies::cyan_lfg;
+    this->white_lfg_ = ::ansies::white_lfg;
+    this->black_lbg_ = ::ansies::black_lbg;
+    this->red_lbg_ = ::ansies::red_lbg;
+    this->green_lbg_ = ::ansies::green_lbg;
+    this->yellow_lbg_ = ::ansies::yellow_lbg;
+    this->blue_lbg_ = ::ansies::blue_lbg;
+    this->magenta_lbg_ = ::ansies::magenta_lbg;
+    this->cyan_lbg_ = ::ansies::cyan_lbg;
+    this->white_lbg_ = ::ansies::white_lbg;
 }
 
 } // namespace ansies

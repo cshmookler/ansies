@@ -17,6 +17,7 @@ class ansiesTestPackage(ConanFile):
         if self.tested_reference_str is not None:
             self.requires(self.tested_reference_str)
         else:
+            # self.requires("ansies/[0.2.0-2-ga75d58b]")
             self.requires("ansies/[*]")
     
     def layout(self):

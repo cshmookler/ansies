@@ -1,10 +1,14 @@
 project('ansies',
         'cpp',
-        version : run_command('git', 'describe', '--tags', check : true).stdout().strip(),
+        version : meson.get_external_property('version', 'unknown'),
         default_options : ['cpp_std=c++11'])
 
 project_name = meson.project_name()
 project_version = meson.project_version()
+
+if project_version == 'unknown'
+    error('Failed to get library version from Conan.')
+endif
 
 include_dir = meson.source_root()/'include'/project_name
 src_dir = meson.source_root()/'src'

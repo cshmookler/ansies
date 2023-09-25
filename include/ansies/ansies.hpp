@@ -26,6 +26,15 @@
 
 namespace ansies {
 
+constexpr char alert = '\a';
+constexpr char backspace = '\b';
+constexpr char tab = '\t';
+constexpr char newline = '\n';
+constexpr char vertical_tab = '\v';
+constexpr char new_page = '\f';
+constexpr char return_line = '\r';
+constexpr char del = '\177';
+
 using string_type = std::string_view;
 
 constexpr string_type nothing;
@@ -88,22 +97,22 @@ class Sequencer {
     string_type encircled_ = nothing;
     string_type overlined_ = nothing;
     string_type no_encircled_no_overlined_ = nothing;
-    string_type black_bfg_ = nothing;
-    string_type red_bfg_ = nothing;
-    string_type green_bfg_ = nothing;
-    string_type yellow_bfg_ = nothing;
-    string_type blue_bfg_ = nothing;
-    string_type magenta_bfg_ = nothing;
-    string_type cyan_bfg_ = nothing;
-    string_type white_bfg_ = nothing;
-    string_type black_bbg_ = nothing;
-    string_type red_bbg_ = nothing;
-    string_type green_bbg_ = nothing;
-    string_type yellow_bbg_ = nothing;
-    string_type blue_bbg_ = nothing;
-    string_type magenta_bbg_ = nothing;
-    string_type cyan_bbg_ = nothing;
-    string_type white_bbg_ = nothing;
+    string_type black_lfg_ = nothing;
+    string_type red_lfg_ = nothing;
+    string_type green_lfg_ = nothing;
+    string_type yellow_lfg_ = nothing;
+    string_type blue_lfg_ = nothing;
+    string_type magenta_lfg_ = nothing;
+    string_type cyan_lfg_ = nothing;
+    string_type white_lfg_ = nothing;
+    string_type black_lbg_ = nothing;
+    string_type red_lbg_ = nothing;
+    string_type green_lbg_ = nothing;
+    string_type yellow_lbg_ = nothing;
+    string_type blue_lbg_ = nothing;
+    string_type magenta_lbg_ = nothing;
+    string_type cyan_lbg_ = nothing;
+    string_type white_lbg_ = nothing;
 
   public:
     // NOLINTBEGIN(misc-non-private-member-variables-in-classes,
@@ -164,27 +173,32 @@ class Sequencer {
     const string_type& overlined = this->overlined_;
     const string_type& no_encircled_no_overlined =
         this->no_encircled_no_overlined_;
-    const string_type& black_bfg = this->black_bfg_;
-    const string_type& red_bfg = this->red_bfg_;
-    const string_type& green_bfg = this->green_bfg_;
-    const string_type& yellow_bfg = this->yellow_bfg_;
-    const string_type& blue_bfg = this->blue_bfg_;
-    const string_type& magenta_bfg = this->magenta_bfg_;
-    const string_type& cyan_bfg = this->cyan_bfg_;
-    const string_type& white_bfg = this->white_bfg_;
-    const string_type& black_bbg = this->black_bbg_;
-    const string_type& red_bbg = this->red_bbg_;
-    const string_type& green_bbg = this->green_bbg_;
-    const string_type& yellow_bbg = this->yellow_bbg_;
-    const string_type& blue_bbg = this->blue_bbg_;
-    const string_type& magenta_bbg = this->magenta_bbg_;
-    const string_type& cyan_bbg = this->cyan_bbg_;
-    const string_type& white_bbg = this->white_bbg_;
+    const string_type& black_lfg = this->black_lfg_;
+    const string_type& red_lfg = this->red_lfg_;
+    const string_type& green_lfg = this->green_lfg_;
+    const string_type& yellow_lfg = this->yellow_lfg_;
+    const string_type& blue_lfg = this->blue_lfg_;
+    const string_type& magenta_lfg = this->magenta_lfg_;
+    const string_type& cyan_lfg = this->cyan_lfg_;
+    const string_type& white_lfg = this->white_lfg_;
+    const string_type& black_lbg = this->black_lbg_;
+    const string_type& red_lbg = this->red_lbg_;
+    const string_type& green_lbg = this->green_lbg_;
+    const string_type& yellow_lbg = this->yellow_lbg_;
+    const string_type& blue_lbg = this->blue_lbg_;
+    const string_type& magenta_lbg = this->magenta_lbg_;
+    const string_type& cyan_lbg = this->cyan_lbg_;
+    const string_type& white_lbg = this->white_lbg_;
     // NOLINTEND(misc-non-private-member-variables-in-classes,
     // cppcoreguidelines-avoid-const-or-ref-data-members,
     // cppcoreguidelines-non-private-member-variables-in-classes)
 
-    Sequencer();
+  private:
+    void construct_(bool enabled);
+
+  public:
+    inline Sequencer() { this->construct_(true); }
+    inline explicit Sequencer(bool enabled) { this->construct_(enabled); }
 };
 
 } // namespace ansies

@@ -15,7 +15,7 @@ UseTab : Never                                                  #  3.7      # Ne
 TabWidth : 4                                                    #  3.7      # (unsigned integer)  # Irrelevent if UseTab : Never.
 IndentWidth : 4                                                 #  3.7      # (unsigned integer)
 # BracedInitializerIndentWidth : 4                                # 17.x      # (unsigned integer)
-ConstructorInitializerIndentWidth : 4                           #  3.7      # (unsigned integer)
+ConstructorInitializerIndentWidth : 0                           #  3.7      # (unsigned integer)
 ContinuationIndentWidth : 4                                     #  3.7      # (unsigned integer)
 IndentAccessModifiers : false                                   # 13.x      # (boolean)
 AccessModifierOffset : -2                                       #  3.3      # (integer)
