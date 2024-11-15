@@ -1,32 +1,28 @@
-project('ansies',
-        'cpp',
-        version : meson.get_external_property('version', 'unknown'),
-        default_options : ['cpp_std=c++11'])
+# Declare project information
+project(
+    'ansies',
+    'cpp',
+    version : files('VERSION'),
+    default_options : [ 'cpp_std=c++17' ],
+)
 
-project_name = meson.project_name()
-project_version = meson.project_version()
+# Project root and build directories
+root_dir = meson.project_source_root()
+build_dir = meson.project_build_root()
+include_dir = root_dir / 'ansies'
 
-if project_version == 'unknown'
-    error('Failed to get library version from Conan.')
-endif
-
-include_dir = meson.source_root()/'include'/project_name
-src_dir = meson.source_root()/'src'
-build_dir = meson.build_root()
-examples_dir = meson.source_root()/'examples'
-
+# Insert the project version into the version header file
 conf_data = configuration_data()
-conf_data.set('version', project_version)
-configure_file(configuration : conf_data,
-               input : include_dir/'version.hpp.in',
-               output : 'version.hpp')
+conf_data.set('version', meson.project_version())
+configure_file(
+    configuration : conf_data,
+    input : 'ansies' / 'version.hpp.in',
+    output : 'version.hpp',
+)
 
-headers = files(include_dir/'ansies.hpp',
-                build_dir/'version.hpp')
-
-sources = files(src_dir/'ansies.cpp',
-                src_dir/'version.cpp')
-
-# Build ansies
-ansies = library(project_name, sources, version : project_version, install : true)
-install_headers(headers, subdir : project_name)
+# Install headers
+headers = files(
+    build_dir / 'version.hpp',
+    include_dir / 'ansies.hpp'
+)
+install_headers(headers, subdir : 'ansies')

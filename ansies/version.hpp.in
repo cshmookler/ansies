@@ -1,5 +1,5 @@
 /*****************************************************************************/
-/*  Copyright (c) 2023 Caden Shmookler                                       */
+/*  Copyright (c) 2024 Caden Shmookler                                       */
 /*                                                                           */
 /*  This software is provided 'as-is', without any express or implied        */
 /*  warranty. In no event will the authors be held liable for any damages    */
@@ -19,12 +19,10 @@
 /*     distribution.                                                         */
 /*****************************************************************************/
 
-#include "../include/ansies/version.hpp"
+#pragma once
 
-namespace ansies {
+namespace esc {
 
-const char* get_runtime_version() {
-    return ::ansies::compiletime_version;
-}
+constexpr const char* version = "@version@";
 
-} // namespace ansies
+} // namespace esc

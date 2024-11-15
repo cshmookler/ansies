@@ -1,64 +1,75 @@
-# **ANSI Escape Sequences**
-A cross-platform C++ library for using ANSI escape sequences. Supported on Windows and Unix-like operating systems.
+# **ansies**
 
-### **Build from source and install using Conan 2 (for Unix-like systems)**
-**1.** Install a C++ compiler that supports C++17 or higher (Example: g++), Git, Python >=3.7, and the Python Virtual Environment using the system package manager (Example: apt).
-```bash
-$ sudo apt install g++ git python3 python3-venv
-```
-**2.** Create a Python >=3.7 virtual environment and activate it.
-```bash
-$ python3 -m venv venv
-$ source venv/bin/activate
-```
-**3.** Install Conan 2.
-```bash
-$ pip3 install "conan>=2.0.0"
-```
-**4.** Create the default Conan profile. Ensure that it is configured to use C++17 or higher.
-```bash
-$ conan profile detect
-```
-**5.** Clone the ansies git repository and enter the root directory of the project.
-```bash
-$ git clone https://github.com/cshmookler/ansies.git
-$ cd ansies
-```
-**6.** Build and install this project with Conan 2.
-```bash
-$ conan create .
+A header-only C++ library for using ANSI escape sequences. Supported on Windows and Unix-like operating systems.
+
+## Build from Source
+
+### 1.&nbsp; Install a C++ compiler and Meson.
+
+#### Windows:
+
+Install ONE of the following C++ compilers:
+
+- [Visual Studio's C++ compiler](https://visualstudio.microsoft.com/downloads/) (MSVC)
+    - Select the "Desktop development with C++" option.
+- [MinGW](https://sourceforge.net/projects/mingw/) (GCC for Windows)
+    - Mark "mingw32-gcc-g++" for installation. Then select "Apply Changes" within the "Installation" dropdown.
+    - Add the MinGW bin directory (C:\\MinGW\\bin\\) to your [PATH](https://stackoverflow.com/questions/5733220/how-do-i-add-the-mingw-bin-directory-to-my-system-path).
+
+Install [Meson](https://mesonbuild.com) (C++ meta-build system):
+    - Download and execute the Windows installer (.msi file) from the [official repository](https://github.com/mesonbuild/meson/releases).
+
+#### Mac:
+
+Install [Homebrew](https://brew.sh/) (package manager for Mac) by opening a terminal and entering the following command:
+
+```zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### **Build from source and install using Conan 2 (for Windows)**
-**1.** Download and install a C++ compiler that supports C++17 or higher (Example: MSVC).
+Use Homebrew to install GCC (C++ compiler):
 
-**2.** Download and install Python >=3.7 from https://www.python.org/downloads/ (Make sure you add python.exe to your PATH during installation!).
+```zsh
+brew install gcc
+```
 
-**3.** Download and install the latest version of Git from https://git-scm.com/downloads.
+Follow these instructions to install [Meson](https://mesonbuild.com/SimpleStart.html) (C++ meta-build system).
 
-**4.** Open a new command prompt window by pressing the super key, typing `cmd`, and pressing enter. Then use the `cd` command to navigate to your downloads folder.
-```shell
-> cd Downloads
-```
-**5.** Clone the ansies git repository and enter the root directory of the project.
-```shell
-> git clone https://github.com/cshmookler/ansies.git
-> cd ansies
-```
-**6.** Create a Python >=3.7 virtual environment and activate it.
-```shell
-> python -m venv venv
-> .\venv\Scripts\Activate.bat
-```
-**7.** Install Conan 2.
-```shell
-> pip install "conan>=2.0.0"
-```
-**8.** Create the default Conan profile. It should detect the C++ compiler you installed earlier. Ensure that it is configured to use C++17 or higher.
-```shell
-> conan profile detect
-```
-**9.** Build and install this project with Conan 2.
+#### Linux (Ubuntu):
+
 ```bash
-> conan create .
+sudo apt install meson ninja build-essential
 ```
+
+#### Linux (Arch):
+
+```bash
+sudo pacman -S git meson base-devel
+```
+
+### 2.&nbsp; Clone this project.
+
+This project can be downloaded online [here](https://github.com/cshmookler/ansies).
+
+Alternatively, if you have [Git](https://git-scm.com/downloads/) installed, open command prompt (Windows) or a shell (Linux & Mac) and enter the commands below.  This project will be downloaded to the current working directory.
+
+```
+git clone https://github.com/cshmookler/ansies.git
+cd ansies
+```
+
+### 3.&nbsp; Build this project from source.
+
+```
+meson setup build
+```
+
+### 4.&nbsp; (Optional) Install this project globally.
+
+```
+meson install
+```
+
+## **TODO**
+
+- [X] Add basic ANSI escape codes for modifying terminal colors.
