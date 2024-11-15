@@ -21,8 +21,12 @@
 
 #pragma once
 
-namespace esc {
+#ifndef ANSIES_NAMESPACE
+    #define ANSIES_NAMESPACE esc
+#endif
+
+namespace ANSIES_NAMESPACE {
 
 constexpr const char* version = "@version@";
 
-} // namespace esc
+} // namespace ANSIES_NAMESPACE
