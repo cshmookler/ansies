@@ -1,0 +1,17 @@
+{
+    "ansies": {
+        "type": "library",
+        "dependencies": {},
+        "headers": [
+            [
+                "ansies",
+                "version.hpp"
+            ],
+            [
+                "ansies",
+                "ansies.hpp"
+            ]
+        ],
+        "sources": []
+    }
+}

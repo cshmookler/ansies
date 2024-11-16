@@ -1,0 +1,63 @@
+"""ansies test package Conan file"""
+
+from os.path import join as join_path
+from typing import List
+
+from conan import ConanFile
+from conan.tools.build import can_run
+from conan.tools.files import copy as copy_file
+from conan.tools.gnu import PkgConfigDeps
+from conan.tools.meson import Meson, MesonToolchain
+
+
+required_conan_version = ">=2.3.0"
+
+
+class ansiesTestPackage(ConanFile):
+    """ansies test package"""
+
+    # Required
+    name = "test_package"
+    version = "1.0.0"
+
+    # Configuration
+    settings = "os", "compiler", "build_type", "arch"
+
+    def build_requirements(self):
+        """Declare dependencies of the build system"""
+        self.tool_requires("meson/1.4.0")
+        self.tool_requires("pkgconf/2.2.0")
+
+    def requirements(self):
+        """Declare library dependencies"""
+        self.requires(self.tested_reference_str)
+        self._meson_dependencies = [self.tested_reference_str.split("/")[0]]
+
+    def layout(self):
+        """Set the layout of the build files"""
+        self.folders.build = "build"
+        self.folders.generators = join_path(self.folders.build, "generators")
+
+    def generate(self):
+        """Generate the build system"""
+        deps = PkgConfigDeps(self)
+        deps.generate()
+        toolchain = MesonToolchain(self)
+        toolchain.properties = {
+            "_name": self.name,
+            "_version": self.version,
+            "_deps": self._meson_dependencies,
+        }
+        toolchain.generate()
+
+    def build(self):
+        """Build the test project"""
+        meson = Meson(self)
+        meson.configure()
+        meson.build()
+
+    def test(self):
+        """Execute the generated executable(s)"""
+        if can_run(self):
+            cmd = join_path(self.build_folder, "test_package")
+            self.run(cmd, env="conanrun")
