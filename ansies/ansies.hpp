@@ -108,23 +108,23 @@ const string_t cyan_lbg = escape + "[106m";
 const string_t white_lbg = escape + "[107m";
 
 // 256 colors
-[[nodiscard]] string_t fg(uint8_t index) {
+[[nodiscard]] string_t fg(uint8_t index) noexcept {
     std::string index_str = std::to_string(index);
     return escape + "[38;5;" + index_str + "m";
 }
-[[nodiscard]] string_t bg(uint8_t index) {
+[[nodiscard]] string_t bg(uint8_t index) noexcept {
     std::string index_str = std::to_string(index);
     return escape + "[48;5;" + index_str + "m";
 }
 
 // RGB colors
-[[nodiscard]] string_t fg(uint8_t red, uint8_t green, uint8_t blue) {
+[[nodiscard]] string_t fg(uint8_t red, uint8_t green, uint8_t blue) noexcept {
     std::string red_str = std::to_string(red);
     std::string green_str = std::to_string(green);
     std::string blue_str = std::to_string(blue);
     return escape + "[38;2;" + red_str + ";" + green_str + ";" + blue_str + "m";
 }
-[[nodiscard]] string_t bg(uint8_t red, uint8_t green, uint8_t blue) {
+[[nodiscard]] string_t bg(uint8_t red, uint8_t green, uint8_t blue) noexcept {
     std::string red_str = std::to_string(red);
     std::string green_str = std::to_string(green);
     std::string blue_str = std::to_string(blue);
