@@ -21,83 +21,114 @@
 
 #pragma once
 
+// Standard includes
+#include <cstdint>
+#include <string>
+
+// Preprocessor directives
 #ifndef ANSIES_NAMESPACE
     #define ANSIES_NAMESPACE esc
 #endif
 
 namespace ANSIES_NAMESPACE {
 
-using string_t = const char*;
+using string_t = std::string;
 
-constexpr string_t escape = "\x1B";
-constexpr string_t reset = "\x1B[0m";
-constexpr string_t bold = "\x1B[1m";
-constexpr string_t faint = "\x1B[2m";
-constexpr string_t italic = "\x1B[3m";
-constexpr string_t underline = "\x1B[4m";
-constexpr string_t slow_blink = "\x1B[5m";
-constexpr string_t rapid_blink = "\x1B[6m";
-constexpr string_t invert = "\x1B[7m";
-constexpr string_t hide = "\x1B[8m";
-constexpr string_t strike = "\x1B[9m";
-constexpr string_t reset_font = "\x1B[10m";
-constexpr string_t alt_font_1 = "\x1B[11m";
-constexpr string_t alt_font_2 = "\x1B[12m";
-constexpr string_t alt_font_3 = "\x1B[13m";
-constexpr string_t alt_font_4 = "\x1B[14m";
-constexpr string_t alt_font_5 = "\x1B[15m";
-constexpr string_t alt_font_6 = "\x1B[16m";
-constexpr string_t alt_font_7 = "\x1B[17m";
-constexpr string_t alt_font_8 = "\x1B[18m";
-constexpr string_t alt_font_9 = "\x1B[19m";
-constexpr string_t fraktur = "\x1B[20m";
-constexpr string_t double_underline = "\x1B[21m";
-constexpr string_t reset_intensity = "\x1B[22m";
-constexpr string_t no_italic = "\x1B[23m";
-constexpr string_t no_underline = "\x1B[24m";
-constexpr string_t no_blink = "\x1B[25m";
-constexpr string_t proportional_spacing = "\x1B[26m";
-constexpr string_t no_invert = "\x1B[27m";
-constexpr string_t show = "\x1B[28m";
-constexpr string_t no_strike = "\x1B[29m";
-constexpr string_t black_fg = "\x1B[30m";
-constexpr string_t red_fg = "\x1B[31m";
-constexpr string_t green_fg = "\x1B[32m";
-constexpr string_t yellow_fg = "\x1B[33m";
-constexpr string_t blue_fg = "\x1B[34m";
-constexpr string_t magenta_fg = "\x1B[35m";
-constexpr string_t cyan_fg = "\x1B[36m";
-constexpr string_t white_fg = "\x1B[37m";
-constexpr string_t reset_fg = "\x1B[39m";
-constexpr string_t black_bg = "\x1B[40m";
-constexpr string_t red_bg = "\x1B[41m";
-constexpr string_t green_bg = "\x1B[42m";
-constexpr string_t yellow_bg = "\x1B[43m";
-constexpr string_t blue_bg = "\x1B[44m";
-constexpr string_t magenta_bg = "\x1B[45m";
-constexpr string_t cyan_bg = "\x1B[46m";
-constexpr string_t white_bg = "\x1B[47m";
-constexpr string_t reset_bg = "\x1B[49m";
-constexpr string_t no_proportional_spacing = "\x1B[50m";
-constexpr string_t framed = "\x1B[51m";
-constexpr string_t encircled = "\x1B[52m";
-constexpr string_t overlined = "\x1B[53m";
-constexpr string_t no_encircled_no_overlined = "\x1B[54m";
-constexpr string_t black_lfg = "\x1B[90m";
-constexpr string_t red_lfg = "\x1B[91m";
-constexpr string_t green_lfg = "\x1B[92m";
-constexpr string_t yellow_lfg = "\x1B[93m";
-constexpr string_t blue_lfg = "\x1B[94m";
-constexpr string_t magenta_lfg = "\x1B[95m";
-constexpr string_t cyan_lfg = "\x1B[96m";
-constexpr string_t white_lfg = "\x1B[97m";
-constexpr string_t black_lbg = "\x1B[100m";
-constexpr string_t red_lbg = "\x1B[101m";
-constexpr string_t green_lbg = "\x1B[102m";
-constexpr string_t yellow_lbg = "\x1B[103m";
-constexpr string_t blue_lbg = "\x1B[104m";
-constexpr string_t magenta_lbg = "\x1B[105m";
-constexpr string_t cyan_lbg = "\x1B[106m";
-constexpr string_t white_lbg = "\x1B[107m";
+const string_t escape = "\x1B";
+
+// Colors, Fonts, and Styles
+const string_t reset = escape + "[0m";
+const string_t bold = escape + "[1m";
+const string_t faint = escape + "[2m";
+const string_t italic = escape + "[3m";
+const string_t underline = escape + "[4m";
+const string_t slow_blink = escape + "[5m";
+const string_t rapid_blink = escape + "[6m";
+const string_t invert = escape + "[7m";
+const string_t hide = escape + "[8m";
+const string_t strike = escape + "[9m";
+const string_t reset_font = escape + "[10m";
+const string_t alt_font_1 = escape + "[11m";
+const string_t alt_font_2 = escape + "[12m";
+const string_t alt_font_3 = escape + "[13m";
+const string_t alt_font_4 = escape + "[14m";
+const string_t alt_font_5 = escape + "[15m";
+const string_t alt_font_6 = escape + "[16m";
+const string_t alt_font_7 = escape + "[17m";
+const string_t alt_font_8 = escape + "[18m";
+const string_t alt_font_9 = escape + "[19m";
+const string_t fraktur = escape + "[20m";
+const string_t double_underline = escape + "[21m";
+const string_t no_bold = escape + "[22m";
+const string_t no_italic = escape + "[23m";
+const string_t no_underline = escape + "[24m";
+const string_t no_blink = escape + "[25m";
+const string_t proportional_spacing = escape + "[26m";
+const string_t no_invert = escape + "[27m";
+const string_t show = escape + "[28m";
+const string_t no_strike = escape + "[29m";
+const string_t black_fg = escape + "[30m";
+const string_t red_fg = escape + "[31m";
+const string_t green_fg = escape + "[32m";
+const string_t yellow_fg = escape + "[33m";
+const string_t blue_fg = escape + "[34m";
+const string_t magenta_fg = escape + "[35m";
+const string_t cyan_fg = escape + "[36m";
+const string_t white_fg = escape + "[37m";
+const string_t reset_fg = escape + "[39m";
+const string_t black_bg = escape + "[40m";
+const string_t red_bg = escape + "[41m";
+const string_t green_bg = escape + "[42m";
+const string_t yellow_bg = escape + "[43m";
+const string_t blue_bg = escape + "[44m";
+const string_t magenta_bg = escape + "[45m";
+const string_t cyan_bg = escape + "[46m";
+const string_t white_bg = escape + "[47m";
+const string_t reset_bg = escape + "[49m";
+const string_t no_proportional_spacing = escape + "[50m";
+const string_t framed = escape + "[51m";
+const string_t encircled = escape + "[52m";
+const string_t overlined = escape + "[53m";
+const string_t no_encircled_no_overlined = escape + "[54m";
+const string_t black_lfg = escape + "[90m";
+const string_t red_lfg = escape + "[91m";
+const string_t green_lfg = escape + "[92m";
+const string_t yellow_lfg = escape + "[93m";
+const string_t blue_lfg = escape + "[94m";
+const string_t magenta_lfg = escape + "[95m";
+const string_t cyan_lfg = escape + "[96m";
+const string_t white_lfg = escape + "[97m";
+const string_t black_lbg = escape + "[100m";
+const string_t red_lbg = escape + "[101m";
+const string_t green_lbg = escape + "[102m";
+const string_t yellow_lbg = escape + "[103m";
+const string_t blue_lbg = escape + "[104m";
+const string_t magenta_lbg = escape + "[105m";
+const string_t cyan_lbg = escape + "[106m";
+const string_t white_lbg = escape + "[107m";
+
+// 256 colors
+[[nodiscard]] string_t fg(uint8_t index) {
+    std::string index_str = std::to_string(index);
+    return escape + "[38;5;" + index_str + "m";
+}
+[[nodiscard]] string_t bg(uint8_t index) {
+    std::string index_str = std::to_string(index);
+    return escape + "[48;5;" + index_str + "m";
+}
+
+// RGB colors
+[[nodiscard]] string_t fg(uint8_t red, uint8_t green, uint8_t blue) {
+    std::string red_str = std::to_string(red);
+    std::string green_str = std::to_string(green);
+    std::string blue_str = std::to_string(blue);
+    return escape + "[38;2;" + red_str + ";" + green_str + ";" + blue_str + "m";
+}
+[[nodiscard]] string_t bg(uint8_t red, uint8_t green, uint8_t blue) {
+    std::string red_str = std::to_string(red);
+    std::string green_str = std::to_string(green);
+    std::string blue_str = std::to_string(blue);
+    return escape + "[48;2;" + red_str + ";" + green_str + ";" + blue_str + "m";
+}
 
 } // namespace ANSIES_NAMESPACE
